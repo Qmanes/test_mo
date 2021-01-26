@@ -1,0 +1,92 @@
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+
+<nav class="navbar navbar-primary bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" style="color: white;">Detail</a>
+    
+  </div>
+</nav>
+
+{% bootstrap_messages %}
+  
+<div class="container" style="margin-top: 5em;">
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="card" style="width: 18rem;">
+                <img src="{{pokemon_presenter.picture_url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{pokemon_presenter.name}}</h5>
+                  <!--p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p-->
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Height: {{pokemon_presenter.height}}</li>
+                  <li class="list-group-item">Weight: {{pokemon_presenter.weight}}</li>
+                  <li class="list-group-item">Abilities: 
+                    {%for ability in pokemon_presenter.abilities%}
+                      <span class="badge bg-success">{{ability.name}}</span>
+                    {%endfor%}
+                  </li>
+                  <li class="list-group-item">Types: 
+                    {%for type in pokemon_presenter.types%}
+                      <span class="badge bg-success">{{type.name}}</span>
+                    {%endfor%}</li>
+                </ul>
+              </div>        </div>
+        <div class="col-sm">
+            <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+                    Base Stats       
+                 </button>
+                {%for base_stat in pokemon_presenter.bases_stats%}
+                    <button type="button" class="list-group-item list-group-item-action">{{base_stat.name}}: {{base_stat.base_stat}}</button>
+                    
+                {%endfor%}
+               
+              </div>
+            
+
+        </div>
+        <div class="col-sm">
+            <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+                    Specie    
+                 </button>
+                <button type="button" class="list-group-item list-group-item-action">Base Happiness: {{ specie_presenter.base_happiness }}</button>
+                <button type="button" class="list-group-item list-group-item-action">Capture Rate: {{ specie_presenter.capture_rate }}</button>
+                <button type="button" class="list-group-item list-group-item-action">Color: {{ specie_presenter.color }}</button>
+                <button type="button" class="list-group-item list-group-item-action">Habitat: {{ specie_presenter.habitat.name }}</button>
+                <button type="button" class="list-group-item list-group-item-action">Egg Group:
+                    {%for egg_group in specie_presenter.egg_groups%}
+                      <span class="badge bg-success">{{egg_group.name}}</span>
+                    {%endfor%}</button>
+                                   
+              </div>
+
+          </div>
+          <div class="col-sm">
+            <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+                    Evolution    
+                 </button>
+                <button type="button" class="list-group-item list-group-item-action">Evolution From: {{evolution_presenter.evolution_from}}
+                </button>
+                <button type="button" class="list-group-item list-group-item-action">Min Level: {{evolution_presenter.min_level}}</button>
+                <button type="button" class="list-group-item list-group-item-action">Evolution To: {{evolution_presenter.evolution_to}}</button>                                 
+              </div>
+          </div>
+      </div>
+    <div class="row" style="margin-top: 1em;">
+      <div class="col-sm">
+
+      <a href="{% url 'index' %}">Back</a>
+    </div>
+  </div>
+  </div>

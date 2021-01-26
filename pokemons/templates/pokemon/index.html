@@ -1,0 +1,60 @@
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+<nav class="navbar navbar-primary bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" style="color: white;">Main</a>
+      
+    </div>
+  </nav>
+{% bootstrap_messages %}
+
+
+<div class="container" style="margin-top: 5em;">
+   
+    <form action="sync" method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                Sync
+            </button>
+        {% endbuttons %}
+    </form>
+
+    <table class="table">
+
+        <thead>
+            <th scope="col">#</th>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </thead>
+        <tbody>
+
+            {%if pokemons%}
+
+                {%for pokemon in pokemons%}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{pokemon.id}}</td>
+                        <td>{{pokemon.name_txt}}</td>
+                        <td><a href="{% url 'detail' pokemon.id%}">detail</a></td>   
+                    </tr>
+                    
+                {%endfor%}
+            {%else%}
+                <tr col-spans = "3">
+                   <td> No hay registro </td>
+                </tr>
+            {%endif%}
+
+        </tbody>
+    </table>
+    
+</div>
